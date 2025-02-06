@@ -21,14 +21,22 @@ export default createStore({
     },
     actions: { 
         pressButton({ commit, state }, symbol) {
-            if (symbol === 'c' && state.clickedSymbol === 'c') {
-                commit('clearExpression');
-            } else if (symbol === 'c') {
-                commit('removeLastSymbol');
-            } else {
-                commit('setClickedSymbol', symbol);
-                commit('updateExpression', symbol);
+            switch (symbol) {
+                case '=': 
+                    console.log(`Производится вычисление выражения ${state.expression}`);
+                    break
+                case 'c':
+                    if (state.clickedSymbol === 'c') {
+                        commit('clearExpression');
+                    } else {
+                        commit('removeLastSymbol');
+                    }
+                    break
+                default: 
+                    commit('updateExpression', symbol);
+                    break
             }
+
             commit('setClickedSymbol', symbol);
         },
         clearExpression({ commit }) {
