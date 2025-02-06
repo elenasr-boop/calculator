@@ -1,9 +1,16 @@
-<script setup>
-</script>
-
 <template>
-    <div class="screen" />
+    <div class="screen"> {{ expression }} </div>
 </template>
+
+<script>
+export default {
+    computed: {
+        expression() {
+            return this.$store.state.expression;
+        },
+    },
+}
+</script>
 
 <style scoped>
 .screen {
@@ -11,5 +18,8 @@
     height: 70px;
     width: 100%;
     margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>
