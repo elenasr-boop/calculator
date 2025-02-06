@@ -21,7 +21,9 @@ export default createStore({
             state.expression = '';
         },
         setResult(state, answer) {
-            state.result = answer;
+            if (!isNaN(answer)) {
+                state.result = answer;
+            }
         },
     },
     actions: { 
