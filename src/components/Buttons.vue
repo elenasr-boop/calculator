@@ -18,12 +18,12 @@ export default {
     },
     data() {
         return {
-            arrayOfButtons: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "-", "/", "*"]
+            arrayOfButtons: ["%", "(", ")", '.', "1", "2", "3", "+", "4", "5", "6", "-", "7", "8", "9", "/", "c", "0", "=", "*"]
         };
     },
     methods: {
         handleClick(symbol) {
-            console.log(symbol);
+            this.$store.dispatch('pressButton', symbol);
         },
     },
 };
@@ -32,6 +32,6 @@ export default {
 <style lang="css" scoped>
 .buttons {
     display: grid;
-    grid-template: repeat(4, 1fr) / repeat(3, 1fr);
+    grid-template: repeat(3, 1fr) / repeat(4, 1fr);
 }
 </style>
