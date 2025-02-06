@@ -1,9 +1,11 @@
 import { createStore } from 'vuex';
+import { calculationFunction } from './calcFunction';
 
 export default createStore({
     state: {
         clickedSymbol: null,
         expression: '',
+        result: null,
     },
     mutations: {
         setClickedSymbol(state, symbol) {
@@ -17,20 +19,28 @@ export default createStore({
         },
         clearExpression(state) {
             state.expression = '';
-        }
+        },
+        setResult(state, answer) {
+            state.result = answer;
+        },
     },
     actions: { 
         pressButton({ commit, state }, symbol) {
+            if (state.result !== null) {
+                commit('clearExpression');
+                commit('updateExpression', state.result);
+                commit('setResult', null);
+            }
+
             switch (symbol) {
                 case '=': 
-                    console.log(`Производится вычисление выражения ${state.expression}`);
+                    commit('setResult', calculationFunction(state.expression));
                     break
                 case 'c':
-                    if (state.clickedSymbol === 'c') {
-                        commit('clearExpression');
-                    } else {
-                        commit('removeLastSymbol');
-                    }
+                    commit('removeLastSymbol');
+                    break
+                case 'ce':
+                    commit('clearExpression');
                     break
                 default: 
                     commit('updateExpression', symbol);
